@@ -1,5 +1,7 @@
 # Vite 2.0.0 beta tree shaking regression
 
+> ✅ Fixed in 2.0.0-beta.21
+
 When using Vite `vite@1.0.0-rc.13`, `@tabler/icons` could tree-shake. Using `vite@2.0.0-beta.12`, it does not tree shake the module.
 
 Take a look at the provided GH action to see the analyzed data:
