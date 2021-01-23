@@ -18,8 +18,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: yarn
-    - run: yarn add vite@{{ matrix.vite_version }} --exact
-      name: 'Install Vite {{ matrix.vite_version }}'
+    - run: yarn add 'vite@${{ matrix.vite_version }}' --exact
+      name: 'Install Vite ${{ matrix.vite_version }}'
     - run: yarn vite --version
     - run: yarn vite optimize
     - run: |
@@ -28,5 +28,5 @@ jobs:
         node take-screenshot.mjs
     - uses: actions/upload-artifact@v2
       with:
-        name: output-{{ matrix.vite_version }}.png
+        name: output-${{ matrix.vite_version }}.png
         path: output.png
