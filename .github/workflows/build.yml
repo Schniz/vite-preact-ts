@@ -9,11 +9,25 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        vite_version:
+          - '2.0.0-beta.34'
+          - '2.0.0-beta.35'
+          - 'latest'
     steps:
     - uses: actions/checkout@v2
     - run: yarn
-    - run: yarn build
+    - run: yarn add 'vite@${{ matrix.vite_version }}' --exact
+      name: 'Install Vite ${{ matrix.vite_version }}'
+    - run: yarn vite --version
+    - run: yarn vite optimize
+    - run: |
+        yarn vite --port=1234 &
+        yarn wait-on http://localhost:1234 --timeout 10000
+        node take-screenshot.mjs
     - uses: actions/upload-artifact@v2
       with:
-        name: stats.html
-        path: stats.html
+        name: output-${{ matrix.vite_version }}.png
+        path: output.png
