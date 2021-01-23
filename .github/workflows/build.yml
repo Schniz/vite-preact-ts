@@ -25,7 +25,7 @@ jobs:
     - run: yarn vite optimize
     - run: |
         yarn vite --port=1234 &
-        yarn wait-on http://localhost:1234
+        yarn wait-on http://localhost:1234 --timeout 10000
         node take-screenshot.mjs
     - uses: actions/upload-artifact@v2
       with:
